@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>CSRF-Lab | Перевод средств</title>
+    <style>
+        body { font-family: sans-serif; background: #0f172a; color: #f8fafc; padding: 40px; }
+        .card { background: #1e293b; padding: 25px; border-radius: 12px; max-width: 500px; margin: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        h2 { color: #38bdf8; }
+        .balance { font-size: 1.2rem; margin-bottom: 20px; background: #334155; padding: 10px; border-radius: 8px; }
+        input, select { width: 100%; padding: 10px; margin: 10px 0; background: #0f172a; border: 1px solid #475569; color: #fff; border-radius: 6px; }
+        button { background: #2563eb; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #1d4ed8; }
+        .msg { margin-top: 15px; padding: 10px; border-radius: 6px; background: #334155; }
+        a { color: #38bdf8; display: inline-block; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🏦 Банковский перевод</h2>
+        <div class="balance">
+            Пользователь: <b>{{ user }}</b> | Баланс: <b>{{ balance }} тг</b>
+        </div>
+
+        <p>{{ message }}</p>
+
+        <!-- Метод формы меняется в зависимости от того, куда отправился запрос -->
+        <form method="POST">
+            {% if protected %}
+                <!-- Если уровень защищенный, передаем скрытый csrf_token -->
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            {% endif %}
+            
+            <label>Получатель:</label>
+            <select name="to_user">
+                <option value="bob">Bob</option>
+                <option value="eve">Eve</option>
+                <option value="alice">Alice</option>
+            </select>
+
+            <label>Сумма перевода:</label>
+            <input type="number" name="amount" value="1000" min="1">
+
+            <button type="submit">Подтвердить перевод</button>
+        </form>
+
+        <a href="/">⬅️ На главную</a> | <a href="/attacker">🦹 Страница злоумышленника</a>
+    </div>
+</body>
+</html>

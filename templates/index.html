@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>CSRF-Lab | Главная</title>
+    <style>
+        body { font-family: sans-serif; background: #0f172a; color: #f8fafc; padding: 40px; text-align: center; }
+        .menu { background: #1e293b; padding: 30px; border-radius: 12px; max-width: 500px; margin: auto; }
+        a.btn { display: block; background: #2563eb; color: white; padding: 12px; margin: 15px 0; border-radius: 6px; text-decoration: none; font-weight: bold; }
+        a.btn:hover { background: #1d4ed8; }
+        a.vuln { background: #dc2626; }
+        a.vuln:hover { background: #b91c1c; }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <h1>🔐 CSRF Laboratory</h1>
+        <p>Текущий пользователь: <b>{{ user }}</b></p>
+        
+        <a href="/transfer_vulnerable" class="btn vuln">⚠️ Уровень 1: Уязвимый перевод (Без защиты)</a>
+        <a href="/transfer_protected" class="btn">🛡️ Уровень 2: Защищенный перевод (CSRF-Shield)</a>
+        <a href="/attacker" class="btn" style="background: #7f1d1d;">🦹 Уровень 3: Страница злоумышленника</a>
+    </div>
+</body>
+</html>
